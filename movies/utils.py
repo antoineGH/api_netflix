@@ -8,7 +8,7 @@ class BearerAuth(requests.auth.AuthBase):
         response.headers["authorization"] = "Bearer " + self.token
         return response
 
-def get_movies():
-    url = "https://api.themoviedb.org/3/movie/76341"
+def get_movie(movie_id):
+    url = f"https://api.themoviedb.org/3/movie/{movie_id}"
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
