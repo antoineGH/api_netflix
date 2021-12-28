@@ -9,11 +9,13 @@ def create_app(config_class=Config):
     app.config.from_object(Config)
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     from movie.routes import movie   
-    app.register_blueprint(movie)
     from genre.routes import genre   
-    app.register_blueprint(genre)
     from discover.routes import discover   
+    from trending.routes import trending   
+    app.register_blueprint(movie)
+    app.register_blueprint(genre)
     app.register_blueprint(discover)
+    app.register_blueprint(trending)
     return app      
 
     

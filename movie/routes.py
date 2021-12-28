@@ -1,6 +1,4 @@
-from flask import Blueprint, jsonify
-from flask import request 
-import requests
+from flask import Blueprint, jsonify, request
 from movie.utils import searchMovie, getDetails
 
 movie = Blueprint('movie', __name__)
