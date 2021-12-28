@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify
 from flask import request 
 import requests
-from movies.utils import search_movie_id, search_movie
+from movies.utils import search_movie_id, search_movie, get_genre_list
 
 movies = Blueprint('movies', __name__)
 
@@ -22,3 +22,13 @@ def searchMovieId(movie_id):
 
     movie = search_movie_id(movie_id)
     return jsonify(movie)
+
+@movies.route('/api/genre/list', methods=['GET'])
+def getGenreList():
+    if 'language' in request.args:
+        language = requests.args.get('language')
+    else:
+        language='en-US'
+    genre_list = get_genre_list(language)
+    return jsonify(genre_list)
+
