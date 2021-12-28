@@ -9,14 +9,14 @@ class BearerAuth(requests.auth.AuthBase):
         response.headers["authorization"] = "Bearer " + self.token
         return response
 
-def get_movies(query):
+def search_movie(query):
     encoded = urllib.parse.quote(query)
     url = f"https://api.themoviedb.org/3/search/movie?query={encoded}"
     print(url)
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
 
-def get_movie_id(movie_id):
+def search_movie_id(movie_id):
     url = f"https://api.themoviedb.org/3/movie/{movie_id}"
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
