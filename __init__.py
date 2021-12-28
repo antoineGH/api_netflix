@@ -12,6 +12,8 @@ def create_app(config_class=Config):
     app.register_blueprint(movie)
     from genre.routes import genre   
     app.register_blueprint(genre)
+    from discover.routes import discover   
+    app.register_blueprint(discover)
     return app      
 
     
