@@ -6,7 +6,7 @@ from genre.utils import getGenreList
 genre = Blueprint('genre', __name__)
 
 @genre.route('/api/genre/movie/list', methods=['GET'])
-def _getGenreList():
+def getGenreListMain():
     if 'language' in request.args:
         language = requests.args.get('language')
     else:

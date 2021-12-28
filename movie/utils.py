@@ -1,7 +1,7 @@
 from flask import current_app
 import requests
 import urllib.parse
-from auth import BearerAuth
+from auth.BearerAuth import BearerAuth
 
 def searchMovie(query):
     encoded = urllib.parse.quote(query)

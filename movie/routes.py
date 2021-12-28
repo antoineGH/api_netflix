@@ -6,7 +6,7 @@ from movie.utils import searchMovie, getDetails
 movie = Blueprint('movie', __name__)
 
 @movie.route('/api/search/movie', methods=['GET'])
-def _searchMovie():
+def searchMovieMain():
     query = request.args.get('query')
     print(query)
     if not query:
@@ -15,7 +15,7 @@ def _searchMovie():
     return jsonify(movies)
 
 @movie.route('/api/search/movie/<int:movie_id>', methods=['GET'])
-def _getDetails(movie_id):
+def getDetailsMain(movie_id):
     if not movie_id:
         return jsonify({'message': 'missing movie_id in request'}), 404
     movie = getDetails(movie_id)
