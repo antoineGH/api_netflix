@@ -1,7 +1,6 @@
 from flask import current_app
 import requests
 import urllib.parse
-from werkzeug.wrappers import response
 from auth import BearerAuth
 
 def searchMovie(query):

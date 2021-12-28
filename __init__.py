@@ -8,8 +8,10 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
-    from movies.routes import movies    
-    app.register_blueprint(movies)
+    from movie.routes import movie   
+    app.register_blueprint(movie)
+    from genre.routes import genre   
+    app.register_blueprint(genre)
     return app      
 
     

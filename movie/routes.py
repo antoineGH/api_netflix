@@ -11,7 +11,6 @@ def _searchMovie():
     print(query)
     if not query:
         return jsonify({'message':'missing query in request'})
-    
     movies = searchMovie(query)
     return jsonify(movies)
 
@@ -19,6 +18,5 @@ def _searchMovie():
 def _getDetails(movie_id):
     if not movie_id:
         return jsonify({'message': 'missing movie_id in request'}), 404
-
     movie = getDetails(movie_id)
     return jsonify(movie)
