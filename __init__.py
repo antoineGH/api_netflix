@@ -13,11 +13,13 @@ def create_app(config_class=Config):
     from discover.routes import discover   
     from trending.routes import trending   
     from configuration.routes import configuration   
+    from credit.routes import credit   
     app.register_blueprint(find)
     app.register_blueprint(genre)
     app.register_blueprint(discover)
     app.register_blueprint(trending)
     app.register_blueprint(configuration)
+    app.register_blueprint(credit)
     return app      
 
     
