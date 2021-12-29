@@ -4,9 +4,6 @@ import configuration
 
 configuration = Blueprint('configuration', __name__)
 
-accepted_type = ['all','movie','person']
-accepted_time = ['day','week']
-
 @configuration.route('/api/configuration/countries')
 def getCountriesMain():
     countriesList = getCountries()
