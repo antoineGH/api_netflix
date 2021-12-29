@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- Imports -->
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+			integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+			crossorigin="anonymous"
+		/>
+
+		{% if title %}
+		<title>{{ title }} - Netflix API</title>
+		{% else %}
+		<title>Netflix API</title>
+		{% endif %}
+	</head>
+	<body>
+		<!-- Navigation -->
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<a class="navbar-brand" href="#">Netflix API - Documentation</a>
+			<button
+				class="navbar-toggler"
+				type="button"
+				data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent"
+				aria-expanded="false"
+				aria-label="Toggle navigation"
+			>
+				<span class="navbar-toggler-icon"></span>
+			</button>
+		</nav>
+
+		<!-- Main Content -->
+		<div class="container-fluid">
+
+			<!-- Configuration -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Configuration</h5>
+							<p><span style='font-weight: 675;'>GET /api/configuration/countries</span> Return JSON with list of countries. <a href="https://flask-netflix-api.herokuapp.com/api/configuration/countries" class="card-link">https://flask-netflix-api.herokuapp.com/api/configuration/countries</a></p>
+							<p><span style='font-weight: 675;'>GET /api/configuration/languages</span> Return JSON with list of languages. <a href="https://flask-netflix-api.herokuapp.com/api/configuration/languages" class="card-link">https://flask-netflix-api.herokuapp.com/api/configuration/languages</a></p>
+							<p><span style='font-weight: 675;'>GET /api/configuration/timezones</span> Return JSON with list of timezones. <a href="https://flask-netflix-api.herokuapp.com/api/configuration/timezones" class="card-link">https://flask-netflix-api.herokuapp.com/api/configuration/timezones</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Credit -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Credit</h5>
+                            <p><span style='font-weight: 675;'>GET /api/type_media/media_id/credits</span> Return JSON with credit ID. <a href="https://flask-netflix-api.herokuapp.com/api/movie/17302/credits" class="card-link">https://flask-netflix-api.herokuapp.com/api/movie/17302/credits</a></p>
+                            <p><span style='font-weight: 675;'>GET /api/credit?credit_id=credit_id</span> Return JSON with credit details. <a href="https://flask-netflix-api.herokuapp.com/api/credit?credit_id=52fe47169251416c7508d5c7" class="card-link">https://flask-netflix-api.herokuapp.com/api/credit?credit_id=52fe47169251416c7508d5c7</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Discover -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Discover</h5>
+                            <p><span style='font-weight: 675;'>GET /api/discover/type_media</span> Return JSON movie or tv show to discover. <a href="https://flask-netflix-api.herokuapp.com/api/discover/movie?language=en-US&year=2001&with_genres=28&sort_by=popularity.asc" class="card-link">https://flask-netflix-api.herokuapp.com/api/discover/movie?language=en-US&year=2001&with_genres=28&sort_by=popularity.asc</a></p>
+                            <p>optional : accepted_sort = ['popularity.asc', 'popularity.desc', 'release_date.asc', 'release_date.desc',  'original_title.asc', 'original_title.desc', 'vote_average.asc', 'vote_average.desc']</p>
+                            <p>optional : year</p>
+                            <p>optional : language</p>
+                            <p>optional : with_genres</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Find -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Find</h5>
+                            <p><span style='font-weight: 675;'>GET /api/search/type_media?query=Alice</span> Return JSON list of TV shows / movies ID. <a href="https://flask-netflix-api.herokuapp.com/api/search/movie?query=Alice" class="card-link">https://flask-netflix-api.herokuapp.com/api/search/movie?query=Alice</a></p>
+                            <p><span style='font-weight: 675;'>GET /api/search/type_media/media_id</span> Return JSON with TV show / movie details. <a href="https://flask-netflix-api.herokuapp.com/api/search/movie/17302" class="card-link">https://flask-netflix-api.herokuapp.com/api/search/movie/17302</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Genre -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Genre</h5>
+                            <p><span style='font-weight: 675;'>GET /api/genre/type_media/list</span> Return JSON with list of genres for TV Shows / movies. <a href="https://flask-netflix-api.herokuapp.com/api/genre/movie/list" class="card-link">https://flask-netflix-api.herokuapp.com/api/genre/movie/list</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Media -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Media</h5>
+                            <p><span style='font-weight: 675;'>GET /api/type_media/media_id/external_ids</span> Return JSON with external IDs & social. <a href="https://flask-netflix-api.herokuapp.com/api/movie/17302/external_ids" class="card-link">https://flask-netflix-api.herokuapp.com/api/movie/17302/external_ids</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Trending -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Trending</h5>
+                            <p><span style='font-weight: 675;'>GET /api/trending/type/time_window</span> Return JSON with list of trending TV Shows / movies. <a href="https://flask-netflix-api.herokuapp.com/api/trending/movie/week" class="card-link">https://flask-netflix-api.herokuapp.com/api/trending/movie/week</a></p>
+                            <p>type: all, movie, tv</p>
+                            <p>time_window: day, week</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<!-- Bootstrap core JavaScript -->
+		<script
+			src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+			integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+			integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+			crossorigin="anonymous"
+		></script>
+		<script
+			src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+			integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+			crossorigin="anonymous"
+		></script>
+	</body>
+</html>

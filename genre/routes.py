@@ -1,25 +1,13 @@
 from flask import Blueprint, jsonify
 from flask import request 
-import requests
-from genre.utils import getGenreMovieList, getGenreTVList
+from genre.utils import getGenreMediaList
 
 genre = Blueprint('genre', __name__)
 
-@genre.route('/api/genre/movie/list', methods=['GET'])
-def getGenreListMovie():
-    if 'language' in request.args:
-        language = requests.args.get('language')
-    else:
-        language='en-US'
-    genre_list = getGenreMovieList(language)
+@genre.route('/api/genre/<string:type_media>/list', methods=['GET'])
+def getGenreListMedia(type_media):
+    if type_media not in ['movie', 'tv']:
+        return jsonify({'message':'type_media should be movie or tv'})
+    language = request.args.get('language', 'en-US')
+    genre_list = getGenreMediaList(type_media, language)
     return jsonify(genre_list)
-
-@genre.route('/api/genre/tv/list', methods=['GET'])
-def getGenreListTV():
-    if 'language' in request.args:
-        language = requests.args.get('language')
-    else:
-        language='en-US'
-    genre_list = getGenreTVList(language)
-    return jsonify(genre_list)
-

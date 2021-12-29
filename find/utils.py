@@ -3,14 +3,13 @@ import requests
 import urllib.parse
 from auth.BearerAuth import BearerAuth
 
-def searchMovie(query):
+def searchMedias(type_media, query):
     encoded = urllib.parse.quote(query)
-    url = f"https://api.themoviedb.org/3/search/movie?query={encoded}"
-    print(url)
+    url = f"https://api.themoviedb.org/3/search/{type_media}?query={encoded}"
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
 
-def getDetails(movie_id):
-    url = f"https://api.themoviedb.org/3/movie/{movie_id}"
+def getDetails(type_media, movie_id):
+    url = f"https://api.themoviedb.org/3/{type_media}/{movie_id}"
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
