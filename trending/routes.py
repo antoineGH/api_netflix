@@ -12,10 +12,3 @@ def getTrendingAllMain(type, time_window):
         return jsonify({'message': 'incorrect time_window in request'})
     trending = getTrending(type, time_window)
     return jsonify(trending)
-
-
-
-
-
-
-
