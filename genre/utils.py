@@ -1,16 +1,8 @@
 from flask import current_app
 import requests
-import urllib.parse
 from auth.BearerAuth import BearerAuth
 
-def getGenreMovieList(language):
-    encoded = urllib.parse.quote(language)
-    url = f'https://api.themoviedb.org/3/genre/movie/list?language={encoded}'
-    response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
-    return response.json()
-
-def getGenreTVList(language):
-    encoded = urllib.parse.quote(language)
-    url = f'https://api.themoviedb.org/3/genre/tv/list?language={encoded}'
+def getGenreMediaList(type_media, language):
+    url = f'https://api.themoviedb.org/3/genre/{type_media}/list?language={language}'
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
