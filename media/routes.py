@@ -1,7 +1,11 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 from media.utils import getExternal, getSimilar
 
 media = Blueprint('media', __name__)
+
+@media.route('/')
+def home():
+    return render_template('documentation.html', title='Documentation')
 
 @media.route('/api/<string:type_media>/<string:media_id>/external_ids', methods=['GET'])
 def getExternalMain(type_media, media_id):
