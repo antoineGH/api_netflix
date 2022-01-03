@@ -9,7 +9,7 @@ def getCreditIDMain(type_media, media_id):
         return jsonify({'message':'type_media should be movie or tv'})
 
     creditID = getCreditID(type_media, media_id)
-    return jsonify(creditID)
+    return jsonify(creditID['cast'])
 
 @credit.route('/api/credit', methods=['GET'])
 def getCreditsMain():
