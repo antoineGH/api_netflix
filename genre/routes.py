@@ -10,4 +10,5 @@ def getGenreListMedia(type_media):
         return jsonify({'message':'type_media should be movie or tv'})
     language = request.args.get('language', 'en-US')
     genre_list = getGenreMediaList(type_media, language)
-    return jsonify(genre_list)
+    # print(genre_list['genres'])
+    return jsonify(genre_list['genres'])
