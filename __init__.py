@@ -2,13 +2,25 @@ from flask import Flask
 from flask_cors import CORS
 from config import Config
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager
 
+db = SQLAlchemy()
+bcrypt = Bcrypt()
+jwt = JWTManager()
 cors = CORS()
 
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+    bcrypt.init_app(app)
+    jwt.init_app(app)
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
+    db.init_app(app)
+    with app.test_request_context():
+        from models import Account, User, List, Movie
+        db.create_all()
+        
     from find.routes import find   
     from media.routes import media   
     from genre.routes import genre   
