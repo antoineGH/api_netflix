@@ -132,6 +132,82 @@
 				</div>
 			</div>
 
+			<!-- Account -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Account</h5>
+                            <p><span style='font-weight: 675;'>POST /api/login</span> Return JSON with JWT if login successfully. <a href="https://flask-netflix-api.herokuapp.com/api/login" class="card-link">https://flask-netflix-api.herokuapp.com/api/login</a></p>
+							<p style="font-style: italic;">{"email": "email", "password": "password"}</p> 
+                            <p><span style='font-weight: 675;'>POST /api/register</span> Create account table with default profile and default list <a href="https://flask-netflix-api.herokuapp.com/api/register" class="card-link">https://flask-netflix-api.herokuapp.com/api/register</a></p>
+							<p style="font-style: italic;">{"email": "email", "password": "password", "first_name": "first_name", "last_name": "last_name"}</p> 
+                            <p><span style='font-weight: 675;'>GET /api/account</span> Return JSON with account information <a href="https://flask-netflix-api.herokuapp.com/api/account" class="card-link">https://flask-netflix-api.herokuapp.com/api/account</a></p>
+                            <p><span style='font-weight: 675;'>PUT /api/account</span> Update one of the value of all values at once, return updated JSON is successfully <a href="https://flask-netflix-api.herokuapp.com/api/account" class="card-link">https://flask-netflix-api.herokuapp.com/api/account</a></p>
+							<p style="font-style: italic;">{"password": "password", "first_name": "first_name", "last_name": "last_name"}</p> 
+                            <p><span style='font-weight: 675;'>DELETE /api/account</span> Return true if account deleted properly <a href="https://flask-netflix-api.herokuapp.com/api/account" class="card-link">https://flask-netflix-api.herokuapp.com/api/account</a></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- User -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">User</h5>
+                            <p><span style='font-weight: 675;'>GET /api/users</span> Return JSON with all users profile for that account. <a href="https://flask-netflix-api.herokuapp.com/api/users" class="card-link">https://flask-netflix-api.herokuapp.com/api/users</a></p>
+                            <p><span style='font-weight: 675;'>POST /api/user</span> Create new user profile for account and default list <a href="https://flask-netflix-api.herokuapp.com/api/user" class="card-link">https://flask-netflix-api.herokuapp.com/api/user</a></p>
+							<p style="font-style: italic;">{"profile": "profile", "account_id": "account_id"}</p> 
+                            <p><span style='font-weight: 675;'>GET /api/user/user_id</span> Return JSON with user profile information <a href="https://flask-netflix-api.herokuapp.com/api/user/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/user/1</a></p>
+                            <p><span style='font-weight: 675;'>PUT /api/user/user_id</span> Update one of the profile name from user, return updated JSON is successfully <a href="https://flask-netflix-api.herokuapp.com/api/user/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/user/1</a></p>
+							<p style="font-style: italic;">{"profile": "profile"}</p> 
+                            <p><span style='font-weight: 675;'>DELETE /api/user/user_id</span> Return true if user profile deleted properly <a href="https://flask-netflix-api.herokuapp.com/api/user/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/user/1</a></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- List -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">List</h5>
+                            <p><span style='font-weight: 675;'>GET /api/lists/user_id</span> Return JSON with all lists for users profile. <a href="https://flask-netflix-api.herokuapp.com/api/lists/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/lists/1</a></p>
+                            <p><span style='font-weight: 675;'>POST /api/list</span> Create new list for the user profile <a href="https://flask-netflix-api.herokuapp.com/api/list" class="card-link">https://flask-netflix-api.herokuapp.com/api/list</a></p>
+							<p style="font-style: italic;">{"list_title": "list_title", "user_id": "user_id"}</p> 
+                            <p><span style='font-weight: 675;'>GET /api/list/list_id</span> Return JSON with list information <a href="https://flask-netflix-api.herokuapp.com/api/list/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/user/1</a></p>
+                            <p><span style='font-weight: 675;'>PUT /api/list/list_id</span> Update list_title from list, return updated JSON is successfully <a href="https://flask-netflix-api.herokuapp.com/api/list/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/list/1</a></p>
+							<p style="font-style: italic;">{"list_title": "list_title"}</p> 
+                            <p><span style='font-weight: 675;'>DELETE /api/list/list_id</span> Return true if list deleted properly <a href="https://flask-netflix-api.herokuapp.com/api/list/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/list/1</a></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Movie -->
+			<div class="row mt-4 justify-content-left">
+				<div class="col mx-3">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Movie</h5>
+                            <p><span style='font-weight: 675;'>GET /api/movies/list_id</span> Return JSON with all movies for list. <a href="https://flask-netflix-api.herokuapp.com/api/lists/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/lists/1</a></p>
+                            <p><span style='font-weight: 675;'>POST /api/movie</span> Create new movie for the list <a href="https://flask-netflix-api.herokuapp.com/api/movie" class="card-link">https://flask-netflix-api.herokuapp.com/api/movie</a></p>
+							<p style="font-style: italic;">{"tmdb_id": "tmdb_id", "list_id": "list_id"}</p> 
+                            <p><span style='font-weight: 675;'>GET /api/movie/movie_id</span> Return JSON with movie information <a href="https://flask-netflix-api.herokuapp.com/api/movie/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/movie/1</a></p>
+                            <p><span style='font-weight: 675;'>DELETE /api/movie/movie_id</span> Return true if movie deleted properly <a href="https://flask-netflix-api.herokuapp.com/api/movie/1" class="card-link">https://flask-netflix-api.herokuapp.com/api/movie/1</a></p>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		<!-- Bootstrap core JavaScript -->
 		<script
 			src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
