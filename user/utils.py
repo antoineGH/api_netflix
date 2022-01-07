@@ -2,6 +2,12 @@ from flask import jsonify
 from models import User, Movie, List
 from __init__ import db
 
+def getUsers(account_id):
+    users = User.query.filter_by(account_id=account_id).all()
+    if not users:
+        return jsonify({"message": "No user for this account"}), 400
+    return jsonify([user.serialize for user in users])
+
 def getUser(user_id):
     user = User.query.get(user_id)
     if not user: 

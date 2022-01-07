@@ -1,9 +1,24 @@
 from flask import request, Blueprint, jsonify
-from flask_jwt_extended import jwt_required
-from list.utils import getList, postList, updateList, deleteList
+from flask_jwt_extended import jwt_required, get_jwt_claims
+from sqlalchemy.sql.functions import user
+from list.utils import getLists, getList, postList, updateList, deleteList
 
 list = Blueprint('list', __name__)
 
+@list.route('/api/lists/<int:user_id>', methods=['GET'])
+@jwt_required
+def get_lists(user_id):
+    claims = get_jwt_claims()
+    account_id = claims.get('account_id')
+
+    if not account_id:
+        return jsonify({'message': 'Missing account_id in Token'}), 400
+
+    if not user_id:
+        return jsonify({"message": "Missing user_id in request"}), 400
+
+    return getLists(account_id, user_id)
+    
 @list.route('/api/list', methods=['POST'])
 @jwt_required
 def list_post():

@@ -1,6 +1,18 @@
 from flask import jsonify
-from models import Movie
+from models import Movie, User, List
 from __init__ import db
+
+def getMovies(account_id, list_id):
+    users= User.query.filter_by(account_id=account_id).all()
+    list = List.query.get(list_id)
+    for user in users:
+        if user.user_id == list.user_id:
+            user_in_account=True  
+    if not user_in_account:
+        return jsonify({"message": "This user not in Account"}), 503
+
+    movies = Movie.query.filter_by(list_id=list_id).all()
+    return jsonify([movie.serialize for movie in movies])
 
 def getMovie(movie_id):
     movie = Movie.query.get(movie_id)
