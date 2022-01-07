@@ -43,7 +43,7 @@ def create_app(config_class=Config):
     app.register_blueprint(account)
     # app.register_blueprint(user)
     # app.register_blueprint(list)
-    # app.register_blueprint(movie)
+    app.register_blueprint(movie)
     return app      
 
     

@@ -1,5 +1,5 @@
 from flask import jsonify
-from models import Movie
+from models import Movie, List
 from __init__ import db
 
 def getMovie(movie_id):
@@ -9,6 +9,10 @@ def getMovie(movie_id):
     return jsonify(movie=movie.serialize)
 
 def postMovie(tmdb_id, list_id):
+    movies = Movie.query.filter_by(list_id=list_id).all()
+    for movie in movies:
+        if movie.tmdb_id == tmdb_id:
+            return jsonify({"message": "Movie already in list"}), 400
     movie = Movie(tmdb_id=tmdb_id, list_id=list_id)
     db.session.add(movie)
     try:
