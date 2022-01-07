@@ -2,7 +2,6 @@ from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
 from movie.utils import getMovie, postMovie, deleteMovie
 
-from models import Movie
 movie = Blueprint('movie', __name__)
 
 @movie.route('/api/movie', methods=['POST'])
@@ -27,13 +26,7 @@ def movie_post():
 def movie_user(movie_id):
 
     if not movie_id:
-        return jsonify({"message": "Missing movie_id in request"}), 404
-
-    claims = get_jwt_claims()
-    account_id = claims.get('account_id')
-    
-    if not account_id:
-        return jsonify({'message': 'Missing account_id in Token'}), 400
+        return jsonify({"message": "Missing movie_id in request"}), 400
 
     if request.method == 'GET':
         return getMovie(movie_id)
