@@ -1,5 +1,5 @@
 from flask import request, Blueprint, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_claims
+from flask_jwt_extended import jwt_required
 from list.utils import getList, postList, updateList, deleteList
 
 list = Blueprint('list', __name__)
