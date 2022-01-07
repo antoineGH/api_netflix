@@ -1,10 +1,10 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
-from account.utils import login, register, getUserUser, updateUserUser, deleteUserUser
+from account.utils import login, register, getAccount, updateAccount, deleteAccount
 account = Blueprint('account', __name__)
 
 @account.route('/api/login', methods=['POST'])
-def user_login():
+def account_login():
     if not request.is_json: 
         return jsonify({"message": "Missing JSON in request"}), 400
     content = request.get_json(force=True)
@@ -13,7 +13,7 @@ def user_login():
     return login(email, password)
 
 @account.route('/api/register', methods=['POST'])
-def user_register():
+def account_register():
     if not request.is_json: 
         return jsonify({"message": "Missing JSON in request"}), 400
 
@@ -34,17 +34,17 @@ def user_register():
 
     return register(email, first_name, last_name, password)
 
-@account.route('/api/user', methods=['GET', 'PUT', 'DELETE'])
+@account.route('/api/account', methods=['GET', 'PUT', 'DELETE'])
 @jwt_required
-def userUser():
+def account_user():
     claims = get_jwt_claims()
-    user_id = claims.get('user_id')
+    account_id = claims.get('account_id')
     
-    if not user_id:
-        return jsonify({'message': 'Missing user_id in Token'}), 400
+    if not account_id:
+        return jsonify({'message': 'Missing account_id in Token'}), 400
 
     if request.method == 'GET':
-        return getUserUser(user_id)
+        return getAccount(account_id)
 
     if request.method == 'PUT':
         if not request.is_json:
@@ -53,7 +53,7 @@ def userUser():
         first_name = content['first_name'] if 'first_name' in content.keys() else ''
         last_name = content['last_name'] if 'last_name' in content.keys() else ''
         password = content['password'] if 'password' in content.keys() else ''
-        return updateUserUser(password, first_name, last_name, user_id)
+        return updateAccount(password, first_name, last_name, account_id)
 
     if request.method == 'DELETE':
-        return deleteUserUser(user_id)
+        return deleteAccount(account_id)
