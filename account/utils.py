@@ -1,6 +1,6 @@
 from flask import jsonify, make_response
 from flask_jwt_extended import create_access_token
-from models import Account, User, List
+from models import Account, User, List, Movie
 from __init__ import db, bcrypt, jwt
 
 def login(email, password):
@@ -91,16 +91,29 @@ def deleteAccount(account_id):
         return jsonify({"message": "Account not found"}), 404
 
     users = User.query.filter_by(account_id=account_id).all()
-
     for user in users:
-
         lists = List.query.filter_by(user_id=user.user_id).all()
         for list in lists:
-            db.session.delete(list)
-            db.session.commit()
-        db.session.delete(user)
-        db.session.commit()
-    
+            movies = Movie.query.filter_by(list_id=list.list_id).all()
+            for movie in movies:
+                if movie:
+                    db.session.delete(movie)
+                    try:
+                        db.session.commit()
+                    except:
+                        return jsonify(False)
+            if list:
+                db.session.delete(list)
+                try:
+                    db.session.commit()
+                except:
+                    return jsonify(False)
+        if user:
+            db.session.delete(user)
+            try:
+                db.session.commit()
+            except:
+                return jsonify(False)
     db.session.delete(account)
     try:
         db.session.commit()
