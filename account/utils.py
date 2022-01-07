@@ -1,6 +1,6 @@
 from flask import jsonify, make_response
 from flask_jwt_extended import create_access_token
-from models import Account
+from models import Account, User, List
 from __init__ import db, bcrypt, jwt
 
 def login(email, password):
@@ -27,14 +27,30 @@ def register(email, first_name, last_name, password):
     hashedPassword = bcrypt.generate_password_hash(password).decode('utf-8')
     account = Account(email=email, password=hashedPassword, first_name=first_name, last_name=last_name)
     db.session.add(account)
+    
     try:
         db.session.commit()
+        user = User(profile=first_name, account_id=account.account_id)
+        db.session.add(user)
+        try:
+            db.session.commit()
+            list = List(list_title="{}'s list".format(first_name), user_id=user.user_id)
+            db.session.add(list)
+            try:
+                db.session.commit()
+            except:
+                db.session.rollback()
+                return jsonify({"message": "Couldn't add list to DB"}), 400 
+        except:
+            db.session.rollback()
+            return jsonify({"message": "Couldn't add user to DB"}), 400
+
         return jsonify(account=account.serialize)
     except:
         db.session.rollback()
         return jsonify({"message": "Couldn't add account to DB"}), 400
 
-@jwt.account_claims_loader
+@jwt.user_claims_loader
 def add_claims_to_access_token(identity):
     account = Account.query.filter_by(email=identity).first()
     return {
@@ -73,6 +89,18 @@ def deleteAccount(account_id):
     account = Account.query.get(account_id)
     if not account: 
         return jsonify({"message": "Account not found"}), 404
+
+    users = User.query.filter_by(account_id=account_id).all()
+
+    for user in users:
+
+        lists = List.query.filter_by(user_id=user.user_id).all()
+        for list in lists:
+            db.session.delete(list)
+            db.session.commit()
+        db.session.delete(user)
+        db.session.commit()
+    
     db.session.delete(account)
     try:
         db.session.commit()
