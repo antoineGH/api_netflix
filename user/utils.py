@@ -43,7 +43,7 @@ def updateUser(user_id, profile):
     db.session.add(user)
     try:
         db.session.commit()
-        return jsonify(user=user.serialize)
+        return jsonify(user.serialize)
     except:
         db.session.rollback()
         return jsonify({"message": "Couldn't update user"})
