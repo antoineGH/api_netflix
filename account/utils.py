@@ -45,7 +45,7 @@ def register(email, first_name, last_name, password):
             db.session.rollback()
             return jsonify({"message": "Couldn't add user to DB"}), 400
 
-        return jsonify(account=account.serialize)
+        return jsonify(account.serialize)
     except:
         db.session.rollback()
         return jsonify({"message": "Couldn't add account to DB"}), 400
@@ -64,7 +64,7 @@ def getAccount(account_id):
     account = Account.query.get(account_id)
     if not account: 
         return jsonify({"message": "Account not found"}), 404
-    return jsonify(account=account.serialize)
+    return jsonify(account.serialize)
 
 def updateAccount(password, first_name, last_name, account_id):
     account = Account.query.get(account_id)

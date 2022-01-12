@@ -30,7 +30,7 @@ def postUser(profile, account_id):
         except:
             db.session.rollback()
             return jsonify({"message": "Couldn't add list to DB"}), 400 
-        return jsonify(user=user.serialize)
+        return jsonify(user.serialize)
     except:
         db.session.rollback()
         return jsonify({"message": "Couldn't add user to DB"}), 400
