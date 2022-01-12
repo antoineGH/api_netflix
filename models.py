@@ -35,7 +35,7 @@ class User(db.Model):
     def serialize(self):
         return {
             'user_id': self.user_id,
-            'user_title': self.profile,
+            'profile': self.profile,
             'account_id': self.account_id,
         }
 
