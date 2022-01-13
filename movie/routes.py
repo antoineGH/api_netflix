@@ -11,10 +11,10 @@ def get_movies(list_id):
     account_id = claims.get('account_id')
 
     if not account_id:
-        return jsonify({'message': 'Missing account_id in Token'}), 400
+        return jsonify({'msg': 'Missing account_id in Token'}), 400
 
     if not list_id:
-        return jsonify({"message": "Missing list_id in request"}), 400
+        return jsonify({"msg": "Missing list_id in request"}), 400
 
     return getMovies(account_id, list_id)
 
@@ -22,16 +22,16 @@ def get_movies(list_id):
 @jwt_required
 def movie_post():
     if not request.is_json: 
-        return jsonify({"message": "Missing JSON in request"}), 400
+        return jsonify({"msg": "Missing JSON in request"}), 400
 
     content = request.get_json(force=True)
     tmdb_id = content.get("tmdb_id", None)
     list_id = content.get("list_id", None)
 
     if not tmdb_id:
-        return jsonify({"message": "Missing tmdb_id"}), 400
+        return jsonify({"msg": "Missing tmdb_id"}), 400
     if not list_id:
-        return jsonify({"message": "Missing list_id"}), 400
+        return jsonify({"msg": "Missing list_id"}), 400
 
     return postMovie(tmdb_id, list_id)
 
@@ -40,7 +40,7 @@ def movie_post():
 def movie_user(movie_id):
 
     if not movie_id:
-        return jsonify({"message": "Missing movie_id in request"}), 400
+        return jsonify({"msg": "Missing movie_id in request"}), 400
 
     if request.method == 'GET':
         return getMovie(movie_id)

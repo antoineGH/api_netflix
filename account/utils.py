@@ -5,16 +5,16 @@ from __init__ import db, bcrypt, jwt
 
 def login(email, password):
     if not email: 
-        return jsonify({"message": "Missing Email"}), 400
+        return jsonify({"msg": "Missing Email"}), 400
     if not password: 
-        return jsonify({"message": "Missing Password"}), 400
+        return jsonify({"msg": "Missing Password"}), 400
     account = Account.query.filter_by(email=email).first()
     if not account: 
-        return jsonify({"message": "Account not found"}), 404
+        return jsonify({"msg": "Account not found"}), 404
     if account.password == '':
-        return jsonify({"message": "Account not active, Set a password"}), 401
+        return jsonify({"msg": "Account not active, Set a password"}), 401
     if not bcrypt.check_password_hash(account.password, password):
-        return jsonify({"message": "Wrong email or password"}), 401
+        return jsonify({"msg": "Wrong email or password"}), 401
     ret = {
         'access_token': create_access_token(identity=email),
     }
@@ -23,7 +23,7 @@ def login(email, password):
 def register(email, first_name, last_name, password):
     accountExisting = Account.query.filter_by(email=email).first()
     if accountExisting:
-        return jsonify({'message': 'Account already exists'}), 400
+        return jsonify({'msg': 'Account already exists'}), 400
     hashedPassword = bcrypt.generate_password_hash(password).decode('utf-8')
     account = Account(email=email, password=hashedPassword, first_name=first_name, last_name=last_name)
     db.session.add(account)
@@ -40,15 +40,15 @@ def register(email, first_name, last_name, password):
                 db.session.commit()
             except:
                 db.session.rollback()
-                return jsonify({"message": "Couldn't add list to DB"}), 400 
+                return jsonify({"msg": "Couldn't add list to DB"}), 400 
         except:
             db.session.rollback()
-            return jsonify({"message": "Couldn't add user to DB"}), 400
+            return jsonify({"msg": "Couldn't add user to DB"}), 400
 
         return jsonify(account.serialize)
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't add account to DB"}), 400
+        return jsonify({"msg": "Couldn't add account to DB"}), 400
 
 @jwt.user_claims_loader
 def add_claims_to_access_token(identity):
@@ -63,13 +63,13 @@ def add_claims_to_access_token(identity):
 def getAccount(account_id):
     account = Account.query.get(account_id)
     if not account: 
-        return jsonify({"message": "Account not found"}), 404
+        return jsonify({"msg": "Account not found"}), 404
     return jsonify(account.serialize)
 
 def updateAccount(password, first_name, last_name, account_id):
     account = Account.query.get(account_id)
     if not account: 
-        return jsonify({"message": "Account not found"}), 404
+        return jsonify({"msg": "Account not found"}), 404
     if first_name:
         account.first_name = first_name
     if last_name:
@@ -83,12 +83,12 @@ def updateAccount(password, first_name, last_name, account_id):
         return jsonify(account=account.serialize)
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't add account to DB"})
+        return jsonify({"msg": "Couldn't add account to DB"})
 
 def deleteAccount(account_id):
     account = Account.query.get(account_id)
     if not account: 
-        return jsonify({"message": "Account not found"}), 404
+        return jsonify({"msg": "Account not found"}), 404
 
     users = User.query.filter_by(account_id=account_id).all()
     for user in users:

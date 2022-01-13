@@ -5,20 +5,20 @@ from __init__ import db
 def getUsers(account_id):
     users = User.query.filter_by(account_id=account_id).all()
     if not users:
-        return jsonify({"message": "No user for this account"}), 400
+        return jsonify({"msg": "No user for this account"}), 400
     return jsonify([user.serialize for user in users])
 
 def getUser(user_id):
     user = User.query.get(user_id)
     if not user: 
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"msg": "User not found"}), 404
     return jsonify(user=user.serialize)
 
 def postUser(profile, account_id):
     users = User.query.filter_by(account_id=account_id).all()
     for user in users:
         if user.profile == profile:
-            return jsonify({"message": "Profile name already exist for account"}), 400
+            return jsonify({"msg": "Profile name already exist for account"}), 400
     user = User(profile=profile, account_id=account_id)
     db.session.add(user)
     try:
@@ -29,16 +29,16 @@ def postUser(profile, account_id):
             db.session.commit()
         except:
             db.session.rollback()
-            return jsonify({"message": "Couldn't add list to DB"}), 400 
+            return jsonify({"msg": "Couldn't add list to DB"}), 400 
         return jsonify(user.serialize)
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't add user to DB"}), 400
+        return jsonify({"msg": "Couldn't add user to DB"}), 400
 
 def updateUser(user_id, profile):
     user = User.query.get(user_id)
     if not user: 
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"msg": "User not found"}), 404
     user.profile = profile
     db.session.add(user)
     try:
@@ -46,12 +46,12 @@ def updateUser(user_id, profile):
         return jsonify(user.serialize)
     except:
         db.session.rollback()
-        return jsonify({"message": "Couldn't update user"})
+        return jsonify({"msg": "Couldn't update user"})
 
 def deleteUser(user_id):
     user = User.query.get(user_id)
     if not user: 
-        return jsonify({"message": "User not found"}), 404
+        return jsonify({"msg": "User not found"}), 404
 
     lists = List.query.filter_by(user_id=user_id).all()
     for list in lists:

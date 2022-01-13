@@ -9,7 +9,7 @@ accepted_sort = ['popularity.asc', 'popularity.desc', 'release_date.asc', 'relea
 @discover.route('/api/discover/<string:type_media>', methods=['GET'])
 def getGenreListMovie(type_media):
     if type_media not in ['movie', 'tv']:
-        return jsonify({'message':'type_media should be movie or tv'})
+        return jsonify({'msg':'type_media should be movie or tv'})
 
     language = request.args.get('language', 'en-US')
     sort_by = request.args.get('sort_by', None)

@@ -11,7 +11,7 @@ def get_users():
     account_id = claims.get('account_id')
     
     if not account_id:
-        return jsonify({'message': 'Missing account_id in Token'}), 400
+        return jsonify({'msg': 'Missing account_id in Token'}), 400
     print(account_id)
     return getUsers(account_id)
 
@@ -19,16 +19,16 @@ def get_users():
 @jwt_required
 def user_post():
     if not request.is_json: 
-        return jsonify({"message": "Missing JSON in request"}), 400
+        return jsonify({"msg": "Missing JSON in request"}), 400
 
     content = request.get_json(force=True)
     profile = content.get("profile", None)
     account_id = content.get("account_id", None)
 
     if not profile:
-        return jsonify({"message": "Missing profile"}), 400
+        return jsonify({"msg": "Missing profile"}), 400
     if not account_id:
-        return jsonify({"message": "Missing account_id"}), 400
+        return jsonify({"msg": "Missing account_id"}), 400
 
     return postUser(profile, account_id)
 
@@ -37,18 +37,18 @@ def user_post():
 def list_user(user_id):
 
     if not user_id:
-        return jsonify({"message": "Missing user_id in request"}), 404
+        return jsonify({"msg": "Missing user_id in request"}), 404
 
     if request.method == 'GET':
         return getUser(user_id)
 
     if request.method == 'PUT':
         if not request.is_json:
-            return jsonify({"message": "Missing JSON in request"}), 400
+            return jsonify({"msg": "Missing JSON in request"}), 400
         content = request.get_json(force=True)
         profile = content.get("profile", None)
         if not profile:
-            return jsonify({"message": "Missing profile"}), 400
+            return jsonify({"msg": "Missing profile"}), 400
         return updateUser(user_id, profile)
 
     if request.method == 'DELETE':
