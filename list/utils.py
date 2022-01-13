@@ -17,7 +17,7 @@ def getList(list_id):
     list = List.query.get(list_id)
     if not list: 
         return jsonify({"msg": "List not found"}), 404
-    return jsonify(list=list.serialize)
+    return jsonify(list.serialize)
 
 def postList(list_title, user_id):
     lists = List.query.filter_by(user_id=user_id).all()
@@ -28,7 +28,7 @@ def postList(list_title, user_id):
     db.session.add(list)
     try:
         db.session.commit()
-        return jsonify(list=list.serialize)
+        return jsonify(list.serialize)
     except:
         db.session.rollback()
         return jsonify({"msg": "Couldn't add list to DB"}), 400
