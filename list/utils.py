@@ -41,7 +41,7 @@ def updateList(list_id, list_title):
     db.session.add(list)
     try:
         db.session.commit()
-        return jsonify(list=list.serialize)
+        return jsonify(list.serialize)
     except:
         db.session.rollback()
         return jsonify({"msg": "Couldn't update list"})
