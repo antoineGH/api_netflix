@@ -1,16 +1,18 @@
 import json
 from os import access
 from flask import request, Blueprint, jsonify
-from flask_jwt_extended import jwt_required, get_jwt_claims, get_jwt_identity, create_access_token
+from flask_jwt_extended import jwt_required, get_jwt_claims, get_jwt_identity, create_access_token, jwt_refresh_token_required
 from account.utils import login, register, getAccount, updateAccount, deleteAccount
 account = Blueprint('account', __name__)
 
 @account.route('/api/refresh', methods=['POST'])
-@jwt_required(refresh=True)
+@jwt_refresh_token_required
 def refresh():
-    identity = get_jwt_identity()
-    access_token = create_access_token(identity=identity)
-    return jsonify(access_token=access_token)
+    current_user = get_jwt_identity()
+    ret = {
+        'access_token': create_access_token(identity=current_user)
+    }
+    return jsonify(ret), 200
 
 @account.route('/api/login', methods=['POST'])
 def account_login():
