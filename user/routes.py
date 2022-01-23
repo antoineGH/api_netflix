@@ -1,6 +1,7 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
 from user.utils import getUsers, getUser, postUser, updateUser, deleteUser
+from models import User
 
 user = Blueprint('user', __name__)
 
@@ -12,7 +13,6 @@ def get_users():
     
     if not account_id:
         return jsonify({'msg': 'Missing account_id in Token'}), 400
-    print(account_id)
     return getUsers(account_id)
 
 @user.route('/api/user', methods=['POST'])
@@ -38,6 +38,18 @@ def list_user(user_id):
 
     if not user_id:
         return jsonify({"msg": "Missing user_id in request"}), 404
+
+    claims = get_jwt_claims()
+    account_id = claims.get('account_id')
+
+    users = User.query.filter_by(account_id=account_id).all()
+    accountHasUser = False
+    for user in users:
+        if user.user_id == user_id:
+            accountHasUser=True
+
+    if not accountHasUser:    
+        return jsonify({'msg':'Unauthorized'}), 500
 
     if request.method == 'GET':
         return getUser(user_id)
