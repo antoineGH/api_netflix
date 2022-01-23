@@ -16,6 +16,9 @@ def getUser(user_id):
 
 def postUser(profile, account_id):
     users = User.query.filter_by(account_id=account_id).all()
+    if len(users) >= 5:
+        return jsonify({"msg": "No more than 5 profiles"}), 400
+
     for user in users:
         if user.profile == profile:
             return jsonify({"msg": "Profile name already exist for account"}), 400
