@@ -1,5 +1,5 @@
+config.py
 config.json
 *.db
 venv/
 __pycache__
-config.py
