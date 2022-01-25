@@ -1,7 +1,8 @@
+import json
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
 from movie.utils import getMovies, getMovie, postMovie, deleteMovie
-from models import List, User
+from models import List, User, Movie
 
 movie = Blueprint('movie', __name__)
 
@@ -32,8 +33,6 @@ def get_movies(list_id):
     if not accountHasList:
         return jsonify({'msg':'Unauthorized'}), 500
 
-
-
     return getMovies(account_id, list_id)
 
 @movie.route('/api/movie', methods=['POST'])
@@ -51,6 +50,26 @@ def movie_post():
     if not list_id:
         return jsonify({"msg": "Missing list_id"}), 400
 
+    claims = get_jwt_claims()
+    account_id = claims.get('account_id')
+
+    if not account_id:
+        return jsonify({'msg': 'Missing account_id in Token'}), 400
+
+    users = User.query.filter_by(account_id=account_id).all()
+    list = List.query.get(list_id)
+
+    if not list:
+        return jsonify({"msg": "List not found"}), 404
+
+    accountHasList = False
+    for user in users:
+        if user.user_id == list.user_id:
+            accountHasList = True
+        
+    if not accountHasList:
+        return jsonify({'msg':'Unauthorized'}), 500
+
     return postMovie(tmdb_id, list_id)
 
 @movie.route('/api/movie/<int:movie_id>', methods=['GET', 'DELETE'])
@@ -59,6 +78,30 @@ def movie_user(movie_id):
 
     if not movie_id:
         return jsonify({"msg": "Missing movie_id in request"}), 400
+
+    claims = get_jwt_claims()
+    account_id = claims.get('account_id')
+
+    if not account_id:
+        return jsonify({'msg': 'Missing account_id in Token'}), 400
+
+    movie = Movie.query.get(movie_id)
+    if not movie:
+        return jsonify({'msg':'Movie not found'})
+
+    list = List.query.get(movie.list_id)
+    if not list:
+        return jsonify({"msg": "List not found"}), 404
+        
+    users = User.query.filter_by(account_id=account_id).all()
+
+    accountHasList = False
+    for user in users:
+        if user.user_id == list.user_id:
+            accountHasList = True
+        
+    if not accountHasList:
+        return jsonify({'msg':'Unauthorized'}), 500
 
     if request.method == 'GET':
         return getMovie(movie_id)
