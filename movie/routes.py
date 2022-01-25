@@ -1,12 +1,14 @@
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
 from movie.utils import getMovies, getMovie, postMovie, deleteMovie
+from models import List, User
 
 movie = Blueprint('movie', __name__)
 
 @movie.route('/api/movies/<int:list_id>', methods=['GET'])
 @jwt_required
 def get_movies(list_id):
+    
     claims = get_jwt_claims()
     account_id = claims.get('account_id')
 
@@ -15,6 +17,22 @@ def get_movies(list_id):
 
     if not list_id:
         return jsonify({"msg": "Missing list_id in request"}), 400
+
+    users = User.query.filter_by(account_id=account_id).all()
+    list = List.query.get(list_id)
+
+    if not list:
+        return jsonify({"msg": "List not found"}), 404
+
+    accountHasList = False
+    for user in users:
+        if user.user_id == list.user_id:
+            accountHasList = True
+        
+    if not accountHasList:
+        return jsonify({'msg':'Unauthorized'}), 500
+
+
 
     return getMovies(account_id, list_id)
 
