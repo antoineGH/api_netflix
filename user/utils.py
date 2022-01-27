@@ -12,7 +12,7 @@ def getUser(user_id):
     user = User.query.get(user_id)
     if not user: 
         return jsonify({"msg": "User not found"}), 404
-    return jsonify(user=user.serialize)
+    return jsonify(user.serialize)
 
 def postUser(profile, account_id):
     users = User.query.filter_by(account_id=account_id).all()
