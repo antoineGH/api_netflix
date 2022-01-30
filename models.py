@@ -62,13 +62,14 @@ class Media(db.Model):
     list_id = Column(Integer, ForeignKey(List.list_id), nullable=False)
 
     def __repr__(self):
-        return "MEDIA - media_id: {}, tmdb_id: {}, list_id: {}".format(self.media_id, self.tmdb_id, self.list_id)
+        return "MEDIA - media_id: {}, tmdb_id: {}, media_type: {}, list_id: {}".format(self.media_id, self.tmdb_id, self.media_type, self.list_id)
 
     @property
     def serialize(self):
         return {
             'media_id': self.media_id,
             'tmdb_id': self.tmdb_id,
+            'media_type': self.media_type,
             'list_id': self.list_id,
         }
 
