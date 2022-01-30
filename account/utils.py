@@ -1,6 +1,6 @@
 from flask import jsonify
 from flask_jwt_extended import create_access_token
-from models import Account, User, List, Movie
+from models import Account, User, List, Media
 from __init__ import db, bcrypt, jwt
 
 def login(email, password):

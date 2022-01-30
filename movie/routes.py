@@ -2,7 +2,7 @@ import json
 from flask import request, Blueprint, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_claims
 from movie.utils import getMovies, getMovie, postMovie, deleteMovie
-from models import List, User, Movie
+from models import List, User, Media
 
 movie = Blueprint('movie', __name__)
 

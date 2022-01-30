@@ -1,6 +1,6 @@
 import datetime
 from __init__ import db
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, Boolean
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 
 class Account(db.Model):
     account_id = Column(Integer, primary_key=True)
@@ -55,18 +55,19 @@ class List(db.Model):
             'user_id': self.user_id,
         }
 
-class Movie(db.Model):
-    movie_id = Column(Integer, primary_key=True)
+class Media(db.Model):
+    media_id = Column(Integer, primary_key=True)
     tmdb_id = Column(Integer, nullable=False)
+    media_type = Column(String(200), nullable=False)
     list_id = Column(Integer, ForeignKey(List.list_id), nullable=False)
 
     def __repr__(self):
-        return "- MOVIE - movie_id: {}, tmdb_id: {}, list_id: {}".format(self.movie_id, self.tmdb_id, self.list_id)
+        return "MEDIA - media_id: {}, tmdb_id: {}, list_id: {}".format(self.media_id, self.tmdb_id, self.list_id)
 
     @property
     def serialize(self):
         return {
-            'movie_id': self.movie_id,
+            'media_id': self.media_id,
             'tmdb_id': self.tmdb_id,
             'list_id': self.list_id,
         }

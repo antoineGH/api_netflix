@@ -24,4 +24,28 @@ def getDetailsMain(type_media, media_id):
         return jsonify({'msg': 'missing media_id in request'}), 404
 
     movie = getDetails(type_media, media_id)
-    return jsonify(movie)
+    # print(movie)
+
+    movie_light = dict({
+        'id': movie['id'],
+        'imdb_id': movie["imdb_id"],
+        "genres": movie["genres"],
+        "title": movie["title"],
+        "original_language": movie["original_language"],
+        "tagline": movie["tagline"],
+        "homepage": movie["homepage"],
+        "overview": movie["overview"],
+        "runtime": movie["runtime"],
+        "release_date": movie["release_date"],
+        "production_countries": movie["production_countries"],
+        "production_companies": movie["production_companies"],
+        "poster_path": movie["poster_path"],
+        "poster_full_path": "https://image.tmdb.org/t/p/w500/" + movie["poster_path"],
+        "vote_average": movie["vote_average"],
+        "vote_count": movie["vote_count"],
+        "popularity": movie["popularity"],
+        "video": movie["video"],
+        "status": movie["status"],
+        })
+    # print(movie_light)
+    return jsonify(movie_light)

@@ -18,7 +18,7 @@ def create_app(config_class=Config):
     cors.init_app(app, resources={r"/api/*": {"origins": "*"}})
     db.init_app(app)
     with app.test_request_context():
-        from models import Account, User, List, Movie
+        from models import Account, User, List, Media
         db.create_all()
         
     from find.routes import find   

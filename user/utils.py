@@ -1,5 +1,5 @@
 from flask import jsonify
-from models import User, Movie, List
+from models import User, Media, List
 from __init__ import db
 
 def getUsers(account_id):
