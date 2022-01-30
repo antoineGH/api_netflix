@@ -58,7 +58,7 @@ def deleteUser(user_id):
 
     lists = List.query.filter_by(user_id=user_id).all()
     for list in lists:
-        movies = Movie.query.filter_by(list_id=list.list_id).all()
+        movies = Media.query.filter_by(list_id=list.list_id).all()
         for movie in movies:
             db.session.delete(movie)
         try:
