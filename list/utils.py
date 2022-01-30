@@ -50,7 +50,7 @@ def deleteList(list_id):
     list = List.query.get(list_id)
     if not list: 
         return jsonify({"msg": "List not found"}), 404
-    movies = Movie.query.filter_by(list_id=list_id).all()
+    movies = Media.query.filter_by(list_id=list_id).all()
     for movie in movies:
         db.session.delete(movie)
         try:

@@ -94,7 +94,7 @@ def deleteAccount(account_id):
     for user in users:
         lists = List.query.filter_by(user_id=user.user_id).all()
         for list in lists:
-            movies = Movie.query.filter_by(list_id=list.list_id).all()
+            movies = Media.query.filter_by(list_id=list.list_id).all()
             for movie in movies:
                 if movie:
                     db.session.delete(movie)

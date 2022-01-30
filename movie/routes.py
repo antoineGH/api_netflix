@@ -85,7 +85,7 @@ def movie_user(movie_id):
     if not account_id:
         return jsonify({'msg': 'Missing account_id in Token'}), 400
 
-    movie = Movie.query.get(movie_id)
+    movie = Media.query.get(movie_id)
     if not movie:
         return jsonify({'msg':'Movie not found'})
 
