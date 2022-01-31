@@ -30,8 +30,7 @@ def create_app(config_class=Config):
     from credit.routes import credit   
     from account.routes import account   
     from user.routes import user   
-    from list.routes import list   
-    from movie.routes import movie   
+    from list.routes import list     
     
     app.register_blueprint(find)
     app.register_blueprint(media)
@@ -43,7 +42,6 @@ def create_app(config_class=Config):
     app.register_blueprint(account)
     app.register_blueprint(user)
     app.register_blueprint(list)
-    app.register_blueprint(movie)
     return app      
 
     
