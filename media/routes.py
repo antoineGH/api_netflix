@@ -68,7 +68,7 @@ def media_post():
 
     if not tmdb_id:
         return jsonify({"msg": "Missing tmdb_id"}), 400
-    if not media_type or media_type not in ['video', 'tv']:
+    if not media_type or media_type not in ['movie', 'tv']:
         return jsonify({"msg": "Missing media_type"}), 400
     if not list_id:
         return jsonify({"msg": "Missing list_id"}), 400
