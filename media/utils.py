@@ -25,12 +25,31 @@ def getMedias(account_id, list_id):
         return jsonify({"msg": "This user not in Account"}), 503
 
     medias = Media.query.filter_by(list_id=list_id).all()
+    print(medias)
+
     for media in medias:
-        print(media.tmdb_id)
         url = f'https://api.themoviedb.org/3/{media.media_type}/{media.tmdb_id}?language=en-US'
-        print(url)
         response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
-        print(response.json())
+        media_details = response.json()
+        media.imdb_id = media_details.get("imdb_id", None)
+        media.genres = media_details.get("genres", None)
+        media.title = media_details.get("title", None)
+        media.original_language = media_details.get("original_language", None)
+        media.tagline = media_details.get("tagline", None)
+        media.homepage = media_details.get("homepage", None)
+        media.overview = media_details.get("overview", None)
+        media.runtime = media_details.get("runtime", None)
+        media.release_date = media_details.get("release_date", None)
+        media.production_countries = media_details.get("production_countries", None)
+        media.production_companies = media_details.get("production_companies", None)
+        media.poster_path = media_details.get("poster_path", None)
+        media.poster_full_path = "https://image.tmdb.org/t/p/w500/" + media.poster_path
+        media.vote_average = media_details.get("vote_average", None)
+        media.vote_count = media_details.get("vote_count", None)
+        media.popularity = media_details.get("popularity", None)
+        media.video = media_details.get("video", None)
+        media.status = media_details.get("status", None)
+        
     return jsonify([media.serialize for media in medias])
 
 def getMedia(media_id):

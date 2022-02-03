@@ -71,5 +71,21 @@ class Media(db.Model):
             'tmdb_id': self.tmdb_id,
             'media_type': self.media_type,
             'list_id': self.list_id,
-        }
+            '': self.imdb_id,
+            'genres': self.genres,
+            'title': self.title,
+            'original_language': self.original_language,
+            'homepage': self.homepage,
+            'overview': self.overview,
+            'runtime': self.runtime,
+            'release_date': self.release_date,
+            'production_countries': self.production_countries,
+            'production_companies': self.production_companies,
+            'poster_path': self.poster_path,
+            'poster_full_path': self.poster_full_path,
+            'vote_count': self.vote_count,
+            'popularity': self.popularity,
+            'video': self.video,
+            'status': self.status,
 
+        }
