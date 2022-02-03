@@ -25,7 +25,6 @@ def getMedias(account_id, list_id):
         return jsonify({"msg": "This user not in Account"}), 503
 
     medias = Media.query.filter_by(list_id=list_id).all()
-    print(medias)
 
     for media in medias:
         url = f'https://api.themoviedb.org/3/{media.media_type}/{media.tmdb_id}?language=en-US'
