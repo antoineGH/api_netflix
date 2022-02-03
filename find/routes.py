@@ -24,8 +24,6 @@ def getDetailsMain(type_media, media_id):
         return jsonify({'msg': 'missing media_id in request'}), 404
 
     movie = getDetails(type_media, media_id)
-    # print(movie)
-
     movie_light = dict({
         'id': movie['id'],
         'imdb_id': movie["imdb_id"],
@@ -47,5 +45,4 @@ def getDetailsMain(type_media, media_id):
         "video": movie["video"],
         "status": movie["status"],
         })
-    # print(movie_light)
     return jsonify(movie_light)

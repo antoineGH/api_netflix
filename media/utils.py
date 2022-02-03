@@ -1,6 +1,9 @@
-from flask import current_app
+from flask import current_app, jsonify
 import requests
 from auth.BearerAuth import BearerAuth
+from models import Media, User, List
+from __init__ import db
+
 
 def getExternal(type_media, media_id):
     url = f'https://api.themediadb.org/3/{type_media}/{media_id}/external_ids'
@@ -12,10 +15,6 @@ def getSimilar(type_media, media_id, language):
     response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
     return response.json()
 
-from flask import jsonify
-from models import Media, User, List
-from __init__ import db
-
 def getMedias(account_id, list_id):
     users= User.query.filter_by(account_id=account_id).all()
     list = List.query.get(list_id)
@@ -26,6 +25,12 @@ def getMedias(account_id, list_id):
         return jsonify({"msg": "This user not in Account"}), 503
 
     medias = Media.query.filter_by(list_id=list_id).all()
+    for media in medias:
+        print(media.tmdb_id)
+        url = f'https://api.themoviedb.org/3/{media.media_type}/{media.tmdb_id}?language=en-US'
+        print(url)
+        response = requests.get(url, auth=BearerAuth(current_app.config['TMDB_BEARER']))
+        print(response.json())
     return jsonify([media.serialize for media in medias])
 
 def getMedia(media_id):
