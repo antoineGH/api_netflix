@@ -71,7 +71,7 @@ class Media(db.Model):
             'tmdb_id': self.tmdb_id,
             'media_type': self.media_type,
             'list_id': self.list_id,
-            '': self.imdb_id,
+            'imdb_id': self.imdb_id,
             'genres': self.genres,
             'title': self.title,
             'original_language': self.original_language,
