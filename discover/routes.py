@@ -15,6 +15,7 @@ def getGenreListMovie(type_media):
     sort_by = request.args.get('sort_by', None)
     year = request.args.get('year', None)
     with_genres = request.args.get('with_genres', None)
+    page = request.args.get('page', None)
 
-    discover_movies = getDiscoverMedia(type_media, language, sort_by, year, with_genres)
+    discover_movies = getDiscoverMedia(type_media, language, sort_by, year, with_genres, page)
     return jsonify(discover_movies)
