@@ -65,7 +65,7 @@ def media_post():
     tmdb_id = content.get("tmdb_id", None)
     media_type = content.get("media_type", None)
     list_id = content.get("list_id", None)
-
+    
     if not tmdb_id:
         return jsonify({"msg": "Missing tmdb_id"}), 400
     if not media_type or media_type not in ['movie', 'tv']:
