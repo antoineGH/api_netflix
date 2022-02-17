@@ -66,7 +66,7 @@ def postMedia(tmdb_id, media_type, list_id):
     db.session.add(media)
     try:
         db.session.commit()
-        return jsonify(media.serialize)
+        return jsonify(media.serializeDB)
     except:
         db.session.rollback()
         return jsonify({"msg": "Couldn't add media to DB"}), 400
