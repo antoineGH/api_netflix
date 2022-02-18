@@ -33,6 +33,7 @@ def getMedias(account_id, list_id):
         media.imdb_id = media_details.get("imdb_id", None)
         media.genres = media_details.get("genres", None)
         media.title = media_details.get("title", None)
+        media.name = media_details.get("name", None)
         media.original_language = media_details.get("original_language", None)
         media.tagline = media_details.get("tagline", None)
         media.homepage = media_details.get("homepage", None)

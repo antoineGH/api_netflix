@@ -83,6 +83,7 @@ class Media(db.Model):
             'imdb_id': self.imdb_id,
             'genres': self.genres,
             'title': self.title,
+            'name': self.name,
             'original_language': self.original_language,
             'homepage': self.homepage,
             'overview': self.overview,
